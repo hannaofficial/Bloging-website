@@ -1,0 +1,71 @@
+<%- include("/home/hannanur117/node-project/create_post/views/partials/header.ejs") %>
+<div>
+    
+<div class="post-container">
+    <div class="header"> 
+        <a href="https://www.instagram.com/hannaofficial26/" target="_blank"><img src="https://media.licdn.com/dms/image/D5603AQHf1Jzwmgvi2Q/profile-displayphoto-shrink_800_800/0/1689873661615?e=2147483647&v=beta&t=jxpwKNfEl3yA7tvUhln6vnNMHhyGnMG81XxQqQZi1lE" alt="blog_pic" class="pic"></a>
+        <h2>Han.blog</h2>
+    </div>
+    
+    <% if(posts.length > 0){%>
+        <%posts.forEach((post,index)=> { %>
+            <div class="post">
+                <div class="first">
+                  <h3><%= post.title %></h3>
+                  <div class="link">
+                    <button class="edit-button">...</button> 
+                  </div>
+                </div>
+              
+                <div class="popup" id="popup-<%= index  %>">
+                  <div class="popup-content">
+                    
+                    
+                    <a href="/edit/<%= index %>">Edit</a>
+                    <a href="/delete/<%=index%>" class="delete">Delete</a>
+                    <button class="close-popup">Close</button>
+                    
+                  </div>
+                </div>
+              
+                <p><%= post.body %></p>
+              </div>
+              
+            
+               
+            
+         <%}) %> 
+      <% }else {%>
+        <p>No post yet</p>
+        <% } %>
+
+
+   
+   <form class="create_button" action="/create" method="GET">
+    <button class="button"  type="submit">+</button>
+   </form> 
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+
+        const editButtons = document.querySelectorAll('.edit-button');
+        const popups = document.querySelectorAll('.popup');
+
+        editButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+        const popup = document.getElementById(`popup-${index}`);
+        popup.classList.toggle('active');
+        });
+        });
+
+        const closeButtons = document.querySelectorAll('.close-popup');
+        closeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+        button.parentElement.parentElement.classList.remove('active');
+        });
+        });
+
+</script>    
+
+<%- include("/home/hannanur117/node-project/create_post/views/partials/footer.ejs") %>
